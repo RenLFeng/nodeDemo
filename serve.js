@@ -29,45 +29,7 @@ const request = require('request')
  
 // 发送 get 请求
 
-function get_urllink(access_token){
-  console.log('>>>',access_token)
- request({
-  url: `https://api.weixin.qq.com/wxa/generate_urllink?access_token=${access_token}`,
-  method: "POST",
-  json: true,
-  headers: {
-    "content-type": "application/json",
-  },
-  body: {
-    "path": "",
-    "expire_type":1,
-    "expire_interval":20
-    // "path": "/pages/index/index",
-    // "query": "",
-    // "expire_type":1,
-    // "expire_interval":1,
-    // "env_version": "release",
-    // "cloud_base":
-    // {
-    //     "env": "xxx",
-    //     "domain": "xxx.xx",
-    //     "path": "/jump-wxa.html",
-    //     "query": "a=1&b=2"
-    // }
-  }
-},(err,rep,body) => {
-  if(err){
-    console.log("request  请求post get_urllink 出现错误 err : " , err );
-    return false ;
-  }
-  // body表示返回的数据
-  if(body){
-    console.log(" request body: 请求成功 get_urllink",body)
-    // 请求成功
-    
-  }
-})
-}
+
 function get_wewixin_acc(cb){
   request({
     url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxdc1b7292be669569&secret=4abee2d3acfc499f6b38926b0419dea4',
@@ -102,8 +64,77 @@ function get_wewixin_acc(cb){
     cb && cb(err,rep,body)
 })
 }
+function get_urllink(access_token){
+  console.log('>>>',access_token)
+ request({
+  url: `https://api.weixin.qq.com/wxa/generate_urllink?access_token=${access_token}`,
+  method: "POST",
+  json: true,
+  headers: {
+    "content-type": "application/json",
+  },
+  body: {
+    "path": "pages/index/index.html",
+    "expire_type":1,
+    "expire_interval":20
+    // "path": "/pages/index/index",
+    // "query": "",
+    // "expire_type":1,
+    // "expire_interval":1,
+    // "env_version": "release",
+    // "cloud_base":
+    // {
+    //     "env": "xxx",
+    //     "domain": "xxx.xx",
+    //     "path": "/jump-wxa.html",
+    //     "query": "a=1&b=2"
+    // }
+  }
+},(err,rep,body) => {
+  if(err){
+    console.log("request  请求post get_urllink 出现错误 err : " , err );
+    return false ;
+  }
+  // body表示返回的数据
+  if(body){
+    console.log(" request body: 请求成功 get_urllink",body)
+    // 请求成功
+    
+  }
+})
+}
+function get_scheme (access_token){
+  request({
+   url: `https://api.weixin.qq.com/wxa/generatescheme?access_token=${access_token}`,
+   method: "POST",
+   json: true,
+   headers: {
+     "content-type": "application/json",
+   },
+   body: {
+    "jump_wxa":
+    {
+        "path": "pages/index/index.html",
+        "query": ""
+    },
+     "expire_type":1,
+     "expire_interval":20
+   }
+ },(err,rep,body) => {
+   if(err){
+     console.log("request  请求post get_urllink 出现错误 err : " , err );
+     return false ;
+   }
+   // body表示返回的数据
+   if(body){
+     console.log(" request body: 请求成功 get_scheme",body)
+     // 请求成功
+     
+   }
+ })
+}
 // get_wewixin_acc()
-get_urllink('62_SjzAy90nSm5rwmFoYmRkP2yqJLurQHmXZv4frFE6f-0DQOIBNrmE2VDaljElw3fqMYr5pndFY6GwXk9AZuiXmKCgoBLivKrii0gSXJHkBHN1CCp7eDVJOuqKimLW6SRdFzO7FCE-l-wMbTQOEPJjAAALWQ')
+get_urllink('62_kdlL90ZzCPmuWEU27ec2MRKb1abrdwYnSfePKPriFJ4_WMqV4DtTn8htaZklzMZA_tvUkPsMLGAlOlseJF0IHhYCMgIGgEXx0Wz78_iSHw5xsUTM7hvMhL7XuDeQ9jY0GcErEaVL4DfD_2FaRWOaADABGY')
 return ;
 const http = require('http');
 const port = 8000;
